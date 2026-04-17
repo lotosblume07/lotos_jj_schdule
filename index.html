@@ -1,146 +1,187 @@
-
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>전주국제영화제 시간표</title>
 <style>
 *{box-sizing:border-box;margin:0;padding:0;}
-.wrap{padding:1rem 0 2rem;font-family:var(--font-sans);}
-.tabs{display:flex;border-bottom:0.5px solid var(--color-border-tertiary);margin-bottom:1.25rem;overflow-x:auto;scrollbar-width:none;}
+body{font-family:-apple-system,'Apple SD Gothic Neo','Noto Sans KR',sans-serif;background:#fff;color:#111;padding:1rem;}
+.tabs{display:flex;border-bottom:0.5px solid #e0e0e0;margin-bottom:1.25rem;overflow-x:auto;scrollbar-width:none;}
 .tabs::-webkit-scrollbar{display:none;}
-.tab{flex-shrink:0;padding:8px 14px;font-size:13px;font-weight:500;color:var(--color-text-secondary);border-bottom:2px solid transparent;cursor:pointer;background:none;border-top:none;border-left:none;border-right:none;}
-.tab.active{color:var(--color-text-primary);border-bottom:2px solid var(--color-text-primary);}
+.tab{flex-shrink:0;padding:8px 14px;font-size:13px;font-weight:500;color:#888;border-bottom:2px solid transparent;cursor:pointer;background:none;border-top:none;border-left:none;border-right:none;}
+.tab.active{color:#111;border-bottom:2px solid #111;}
 .panel{display:none;}.panel.active{display:block;}
+.col-headers{display:grid;grid-template-columns:36px 1fr 1fr;gap:4px;margin-bottom:6px;}
+.ch{text-align:center;font-size:12px;font-weight:500;padding:6px;border-radius:8px;}
+.cha{background:#E6F1FB;color:#0C447C;}.chs{background:#FBEAF0;color:#72243E;}
 .tl-wrap{display:flex;}
 .ax{display:flex;flex-direction:column;width:36px;flex-shrink:0;}
-.tk{display:flex;align-items:flex-start;font-size:10px;color:var(--color-text-tertiary);padding-top:2px;justify-content:flex-end;padding-right:8px;}
-.col{position:relative;flex:1;border-left:0.5px solid var(--color-border-tertiary);}
-.hl{position:absolute;left:0;right:0;height:0.5px;background:var(--color-border-tertiary);}
-.hl.mj{background:var(--color-border-secondary);}
-.gb{position:absolute;left:4px;right:4px;background:var(--color-background-secondary);border-radius:4px;display:flex;align-items:center;justify-content:center;}
-.gl{font-size:10px;color:var(--color-text-tertiary);}
-.fb{position:absolute;left:4px;right:4px;border-radius:6px;padding:5px 8px;overflow:hidden;}
-.fb.clipped{border-radius:6px 6px 0 0;border-bottom:2px dashed rgba(0,0,0,0.15);}
-.ft{font-size:12px;font-weight:500;line-height:1.35;}
-.fv{font-size:10px;margin-top:2px;opacity:0.8;white-space:nowrap;overflow:hidden;text-overflow:ellipsis;}
-.fm{font-size:10px;margin-top:1px;opacity:0.65;}
-.fbg{font-size:9px;font-weight:600;margin-top:2px;opacity:0.85;}
-.night-card{position:static;margin-top:0;border-radius:0 0 6px 6px;border-top:2px dashed rgba(0,0,0,0.12);padding:5px 8px;}
-.summary{margin-top:12px;display:flex;gap:16px;font-size:12px;color:var(--color-text-secondary);flex-wrap:wrap;}
-.summary span{display:flex;align-items:center;gap:5px;}
-.dot{width:8px;height:8px;border-radius:2px;flex-shrink:0;}
+.tk{display:flex;align-items:flex-start;font-size:10px;color:#bbb;padding-top:2px;justify-content:flex-end;padding-right:8px;}
+.cols{flex:1;display:grid;grid-template-columns:1fr 1fr;gap:4px;}
+.col{position:relative;border-left:0.5px solid #e8e8e8;}
+.ec{position:relative;border-left:0.5px solid #e8e8e8;opacity:0.25;}
+.hl{position:absolute;left:0;right:0;height:0.5px;background:#f0f0f0;}
+.hl.mj{background:#ddd;}
+.gb{position:absolute;left:3px;right:3px;background:#f5f5f3;border-radius:4px;display:flex;align-items:center;justify-content:center;}
+.gl{font-size:9px;color:#bbb;}
+.fb{position:absolute;left:3px;right:3px;border-radius:5px;padding:4px 6px;overflow:hidden;}
+.fb.clipped{border-radius:5px 5px 0 0;border-bottom:2px dashed rgba(0,0,0,0.15);}
+.ft{font-size:11px;font-weight:600;overflow:hidden;display:-webkit-box;-webkit-line-clamp:2;-webkit-box-orient:vertical;line-height:1.3;}
+.fv{font-size:9px;margin-top:2px;opacity:0.8;white-space:nowrap;overflow:hidden;text-overflow:ellipsis;}
+.fm{font-size:9px;margin-top:1px;opacity:0.65;}
+.fbg{font-size:8px;font-weight:600;margin-top:2px;opacity:0.85;}
+.clash-ring{outline:2px solid #E24B4A;outline-offset:-2px;}
+.night-tail{border-radius:0 0 5px 5px;border-top:2px dashed rgba(0,0,0,0.12);padding:4px 6px;}
+.sr{display:grid;grid-template-columns:36px 1fr 1fr;gap:4px;margin-top:10px;}
+.sc{border-radius:8px;padding:8px 10px;font-size:11px;color:#888;border:0.5px solid #e0e0e0;background:#fff;}
+.sc strong{display:block;font-size:13px;font-weight:500;color:#111;margin-bottom:1px;}
+.se{border-radius:8px;padding:8px 10px;font-size:11px;color:#bbb;border:0.5px dashed #e0e0e0;text-align:center;}
+.ib{margin-top:8px;padding:8px 12px;border-radius:8px;font-size:11px;}
+.ck{background:#FCEBEB;color:#A32D2D;}.ok{background:#EAF3DE;color:#27500A;}.sl{background:#f5f5f3;color:#888;}
+.tb{margin-top:6px;padding:8px 12px;border-radius:8px;font-size:11px;background:#f5f5f3;color:#888;}
 .cp{background:#EEEDFE;color:#3C3489;}.ct{background:#E1F5EE;color:#085041;}.cc{background:#FAECE7;color:#993C1D;}
 .cb{background:#E6F1FB;color:#0C447C;}.cpk{background:#FBEAF0;color:#72243E;}.cam{background:#FAEEDA;color:#633806;}
 .cg{background:#F1EFE8;color:#444441;}.cgr{background:#EAF3DE;color:#27500A;}
-@media(prefers-color-scheme:dark){
-.cp{background:#3C3489;color:#CECBF6;}.ct{background:#085041;color:#9FE1CB;}.cc{background:#993C1D;color:#F5C4B3;}
-.cb{background:#0C447C;color:#B5D4F4;}.cpk{background:#72243E;color:#F4C0D1;}.cam{background:#633806;color:#FAC775;}
-.cg{background:#444441;color:#D3D1C7;}.cgr{background:#27500A;color:#C0DD97;}
-}
 </style>
-
-<div class="wrap">
+</head>
+<body>
 <div class="tabs" id="tabs"></div>
 <div id="panels"></div>
-</div>
-
 <script>
-const PX=56;
+const PX=52;
 const DAYS=[
-  {label:'4/30 목', startH:9, films:[
+  {label:'4/30 목',startH:9,
+   ha:[
     {title:'동부인',time:'10:00–11:37',start:600,end:697,col:'cp',badge:'홍콩귀환',venue:'CGV전주고사 2관'},
     {title:'미스투라',time:'13:30–15:11',start:810,end:911,col:'ct',badge:'특별상영',venue:'메가박스 전주객사 5관'},
     {title:'관리처분계획—미아리 텍사스 편',time:'16:30–18:30',start:990,end:1110,col:'cgr',badge:'코리안시네마',venue:'CGV전주고사 4관'},
     {title:'붉은 안경',time:'20:30–22:31',start:1230,end:1351,col:'cb',badge:'시네필전주',venue:'CGV전주고사 2관'},
-  ]},
-  {label:'5/1 금', startH:13, films:[
+   ],sy:[]},
+  {label:'5/1 금',startH:9,
+   ha:[
     {title:'AI 버추얼 프로덕션 세미나',time:'15:00–17:00',start:900,end:1020,col:'cg',badge:'세미나',venue:'CGV전주고사 1관'},
     {title:'팔림프세스트: 이름에 관한 이야기',time:'17:00–18:49',start:1020,end:1129,col:'cp',badge:'홍콩귀환',venue:'CGV전주고사 2관'},
     {title:'심야상영 1',time:'23:59–익일 05:27',start:1439,end:1440,col:'cam',badge:'불면의 밤',venue:'CGV전주고사 1관',clipped:true},
-  ]},
-  {label:'5/4 월', startH:9, films:[
+   ],
+   sy:[
+    {title:'네 멋대로 해라!! 영웅계획',time:'10:00–11:24',start:600,end:684,col:'cb',badge:'시네필전주',venue:'CGV전주고사 3관'},
+    {title:'AI 버추얼 프로덕션 세미나',time:'15:00–17:00',start:900,end:1020,col:'cg',badge:'세미나',venue:'CGV전주고사 1관'},
+    {title:'팔림프세스트: 이름에 관한 이야기',time:'17:00–18:49',start:1020,end:1129,col:'cp',badge:'홍콩귀환',venue:'CGV전주고사 2관'},
+    {title:'부러진 화살',time:'21:30–23:13',start:1290,end:1393,col:'ct',badge:'특별전',venue:'메가박스 전주객사 7관'},
+    {title:'심야상영 1',time:'23:59–익일 05:27',start:1439,end:1440,col:'cam',badge:'불면의 밤',venue:'CGV전주고사 1관',clipped:true},
+   ]},
+  {label:'5/2 토',startH:17,
+   ha:[],
+   sy:[
+    {title:'암탉의 모험',time:'18:00–19:37',start:1080,end:1177,col:'cb',badge:'월드시네마',venue:'CGV전주고사 2관'},
+    {title:'크로노바이저',time:'21:30–23:09',start:1290,end:1389,col:'cc',badge:'국제경쟁',venue:'CGV전주고사 7관'},
+   ]},
+  {label:'5/3 일',startH:13,
+   ha:[],
+   sy:[
+    {title:'6주 후',time:'14:30–16:09',start:870,end:969,col:'cc',badge:'국제경쟁',venue:'CGV전주고사 7관'},
+   ]},
+  {label:'5/4 월',startH:9,
+   ha:[
     {title:'돌아가신 부모님께 드리는 편지',time:'10:00–11:52',start:600,end:712,col:'cp',badge:'마스터즈',venue:'메가박스 전주객사 10관'},
     {title:'미치유키: 시간의 목소리',time:'14:30–15:49',start:870,end:949,col:'cc',badge:'국제경쟁',venue:'CGV전주고사 7관'},
-  ]},
-  {label:'5/5 화', startH:9, films:[
+   ],sy:[]},
+  {label:'5/5 화',startH:9,
+   ha:[
     {title:'기묘한 이야기들',time:'10:00–14:24',start:600,end:864,col:'cpk',badge:'시네필전주',venue:'메가박스 전주객사 3관'},
     {title:'또 다른 여름의 꿈',time:'17:00–18:10',start:1020,end:1090,col:'cc',badge:'국제경쟁',venue:'CGV전주고사 7관'},
-  ]},
+   ],sy:[]},
 ];
 
-function fmtG(m){
-  if(m<60)return m+'분 공백';
-  const h=Math.floor(m/60),r=m%60;
-  return r?h+'시간 '+r+'분 공백':h+'시간 공백';
+function overlaps(a,b){return a.start<b.end&&b.start<a.end;}
+function fmtG(m){if(m<60)return m+'분 공백';const h=Math.floor(m/60),r=m%60;return r?h+'시간 '+r+'분 공백':h+'시간 공백';}
+
+function mkCol(films,other,totalH,startH){
+  const px=totalH*PX;
+  const sorted=[...films].sort((a,b)=>a.start-b.start);
+  let s=`<div class="col" style="height:${px}px;">`;
+  for(let i=0;i<=totalH;i++){const mj=(startH+i)%6===0;s+=`<div class="hl${mj?' mj':''}" style="top:${i*PX}px;"></div>`;}
+  for(let i=0;i<sorted.length-1;i++){
+    const gm=sorted[i+1].start-sorted[i].end;
+    if(gm>0){const t=(sorted[i].end/60-startH)*PX,gh=(gm/60)*PX;
+      if(gh>=12)s+=`<div class="gb" style="top:${t}px;height:${gh}px;">${gh>=18?`<span class="gl">${fmtG(gm)}</span>`:''}</div>`;}
+  }
+  films.forEach(f=>{
+    const ce=Math.min(f.end,24*60),t=(f.start/60-startH)*PX;
+    const fh=f.clipped?Math.max(((ce-f.start)/60)*PX,48):Math.max(((ce-f.start)/60)*PX,22);
+    const clash=other.some(o=>overlaps(f,o)&&o.title!==f.title);
+    s+=`<div class="fb ${f.col}${f.clipped?' clipped':''}${clash?' clash-ring':''}" style="top:${t}px;height:${fh}px;">
+      <div class="ft">${f.title}</div>
+      ${fh>=26?`<div class="fv">${f.venue}</div>`:''}
+      ${fh>=38?`<div class="fm">${f.time}</div>`:''}
+      ${fh>=50?`<div class="fbg">${f.badge}</div>`:''}
+    </div>`;
+  });
+  return s+'</div>';
+}
+
+function mkEmpty(totalH){
+  const px=totalH*PX;
+  let s=`<div class="ec" style="height:${px}px;">`;
+  for(let i=0;i<=totalH;i++)s+=`<div class="hl" style="top:${i*PX}px;"></div>`;
+  return s+`<div style="display:flex;align-items:center;justify-content:center;height:100%;font-size:11px;color:#bbb;">일정 없음</div></div>`;
 }
 
 function mkPanel(day,i,ai){
-  const endH=Math.min(24,Math.max(...day.films.map(f=>Math.ceil(Math.min(f.end,1440)/60))));
+  const all=[...day.ha,...day.sy];
+  const endH=all.length?Math.min(24,Math.max(...all.map(f=>Math.ceil(Math.min(f.end,1440)/60)))):20;
   const totalH=endH-day.startH;
-  const totalPx=totalH*PX;
-  const sorted=[...day.films].sort((a,b)=>a.start-b.start);
-
-  let col=`<div class="col" style="height:${totalPx}px;">`;
-  for(let h=0;h<=totalH;h++){
-    const mj=(day.startH+h)%6===0;
-    col+=`<div class="hl${mj?' mj':''}" style="top:${h*PX}px;"></div>`;
-  }
-  for(let j=0;j<sorted.length-1;j++){
-    const gm=sorted[j+1].start-sorted[j].end;
-    if(gm>0){
-      const t=(sorted[j].end/60-day.startH)*PX,gh=(gm/60)*PX;
-      if(gh>=12) col+=`<div class="gb" style="top:${t}px;height:${gh}px;">${gh>=20?`<span class="gl">${fmtG(gm)}</span>`:''}</div>`;
+  const clashes=[];
+  day.ha.forEach(fa=>day.sy.forEach(fb=>{
+    if(overlaps(fa,fb)&&fa.title!==fb.title){
+      const k=[fa.title,fb.title].sort().join('|');
+      if(!clashes.find(c=>c.k===k))clashes.push({k,ha:fa.title,sy:fb.title});
     }
+  }));
+  const together=new Set();
+  day.ha.forEach(fa=>{if(day.sy.some(fb=>fa.title===fb.title))together.add(fa.title);});
+  const hm=day.ha.reduce((s,f)=>s+Math.min(f.end,24*60)-f.start,0);
+  const sm=day.sy.reduce((s,f)=>s+Math.min(f.end,24*60)-f.start,0);
+  const haClipped=day.ha.find(f=>f.clipped);
+  const syClipped=day.sy.find(f=>f.clipped);
+  let info='';
+  if(clashes.length)info=`<div class="ib ck">겹침 주의: ${clashes.map(c=>`${c.ha} ↔ ${c.sy}`).join(' / ')}</div>`;
+  else if(day.ha.length&&day.sy.length)info=`<div class="ib ok">겹치는 영화 없음 — 동선 OK!</div>`;
+  else info=`<div class="ib sl">${!day.sy.length?'세윤':!day.ha.length?'하영':''} 일정 없는 날</div>`;
+  const tog=together.size?`<div class="tb">같이 보는 영화: ${[...together].join(' · ')}</div>`:'';
+  const haC=day.ha.length?mkCol(day.ha,day.sy,totalH,day.startH):mkEmpty(totalH);
+  const syC=day.sy.length?mkCol(day.sy,day.ha,totalH,day.startH):mkEmpty(totalH);
+  let tails='';
+  if(haClipped||syClipped){
+    tails=`<div style="display:grid;grid-template-columns:36px 1fr 1fr;gap:4px;margin-top:0;">
+      <div></div>
+      ${haClipped?`<div class="fb cam night-tail"><div style="font-size:9px;opacity:0.7;">↳ 익일 05:27까지 · ${haClipped.venue}</div></div>`:'<div></div>'}
+      ${syClipped?`<div class="fb cam night-tail"><div style="font-size:9px;opacity:0.7;">↳ 익일 05:27까지 · ${syClipped.venue}</div></div>`:'<div></div>'}
+    </div>`;
   }
-  day.films.forEach(f=>{
-    const ce=Math.min(f.end,24*60);
-    const t=(f.start/60-day.startH)*PX;
-    const rawH=((ce-f.start)/60)*PX;
-    const isClipped=f.clipped;
-    const fh=isClipped?Math.max(rawH,52):Math.max(rawH,24);
-    if(isClipped){
-      col+=`<div class="fb ${f.col} clipped" style="top:${t}px;height:${fh}px;">
-        <div class="ft">${f.title}</div>
-        <div class="fv">${f.venue}</div>
-        <div class="fm">${f.time}</div>
-        <div class="fbg">${f.badge} · 익일 새벽까지 계속</div>
-      </div>`;
-    } else {
-      col+=`<div class="fb ${f.col}" style="top:${t}px;height:${fh}px;">
-        <div class="ft">${f.title}</div>
-        ${fh>=28?`<div class="fv">${f.venue}</div>`:''}
-        ${fh>=42?`<div class="fm">${f.time}</div>`:''}
-        ${fh>=56?`<div class="fbg">${f.badge}</div>`:''}
-      </div>`;
-    }
-  });
-  col+=`</div>`;
-
-  const clippedFilm=day.films.find(f=>f.clipped);
-  const totalFilmMins=day.films.reduce((s,f)=>s+Math.min(f.end,24*60)-f.start,0);
-  const gapMins=sorted.reduce((s,f,j)=>j===0?s:s+f.start-sorted[j-1].end,0);
-
   return `<div class="panel ${i===ai?'active':''}">
+    <div class="col-headers"><div></div><div class="ch cha">하영</div><div class="ch chs">세윤</div></div>
     <div class="tl-wrap">
-      <div class="ax">
-        ${Array.from({length:totalH+1},(_,j)=>{
-          const h=day.startH+j;
-          return `<div class="tk" style="height:${PX}px;">${h<24?h+'시':''}</div>`;
-        }).join('')}
-      </div>
-      ${col}
+      <div class="ax">${Array.from({length:totalH+1},(_,j)=>{const h=day.startH+j;return`<div class="tk" style="height:${PX}px;">${h<24?h+'시':''}</div>`;}).join('')}</div>
+      <div class="cols">${haC}${syC}</div>
     </div>
-    ${clippedFilm?`<div class="fb cam night-card"><div style="font-size:10px;opacity:0.7;">↳ 익일 05:27까지 · ${clippedFilm.venue} · ${clippedFilm.badge}</div></div>`:''}
-    <div class="summary" style="margin-top:${clippedFilm?'8':'12'}px;">
-      <span><span class="dot" style="background:#AFA9EC;"></span>상영 ${Math.floor(totalFilmMins/60)}시간 ${totalFilmMins%60}분 · ${day.films.length}편</span>
-      <span><span class="dot" style="background:var(--color-background-secondary);border:0.5px solid var(--color-border-secondary);"></span>공백 ${Math.floor(gapMins/60)}시간 ${gapMins%60}분</span>
+    ${tails}
+    <div class="sr"><div></div>
+      ${day.ha.length?`<div class="sc"><strong>${Math.floor(hm/60)}시간 ${hm%60}분</strong>${day.ha.length}편</div>`:`<div class="se">일정 없음</div>`}
+      ${day.sy.length?`<div class="sc"><strong>${Math.floor(sm/60)}시간 ${sm%60}분</strong>${day.sy.length}편</div>`:`<div class="se">일정 없음</div>`}
     </div>
+    ${info}${tog}
   </div>`;
 }
 
 function render(){
   const ai=parseInt(document.getElementById('tabs').dataset.active||'0');
-  document.getElementById('tabs').innerHTML=DAYS.map((d,i)=>
-    `<button class="tab ${i===ai?'active':''}" onclick="sw(${i})">${d.label}</button>`
-  ).join('');
+  document.getElementById('tabs').innerHTML=DAYS.map((d,i)=>`<button class="tab ${i===ai?'active':''}" onclick="sw(${i})">${d.label}</button>`).join('');
   document.getElementById('panels').innerHTML=DAYS.map((d,i)=>mkPanel(d,i,ai)).join('');
 }
 function sw(i){document.getElementById('tabs').dataset.active=i;render();}
 render();
 </script>
+</body>
+</html>
